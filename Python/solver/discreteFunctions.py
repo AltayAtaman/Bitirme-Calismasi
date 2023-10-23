@@ -2,9 +2,8 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-
 class solver:
-    def __init__(self, dt, t_initial, t_final, systemCoef_a, systemCoef_u, x_initial):
+    def __init__(self, dt, t_initial, t_final, systemCoef_a = 0, systemCoef_u = 0, x_initial = 0):
         self.dt = dt
         self.t_initial = t_initial
         self.t_final = t_final
@@ -38,6 +37,30 @@ class solver:
             self.x[k + 1] = self.x[k - 1] + 2 * self.dt * (self.systemCoef_a  * self.x[k - 1] + self.systemCoef_u * self.u[k - 1])
             print("t = {0}, x = {1}".format(self.t[k], self.x[k]))
 
+    def linearize(self, method='forward'):
+
+        if method == 'forward':
+
+            for k in range(0, int(self.t_final / self.dt) - 1):
+                self.x[k + 1] = self.x[k] + self.dt * (self.systemCoef_a * self.x[k] * self.x[k])
+                print("t = {0}, x = {1}".format(self.t[k], self.x[k]))
+            
+        elif method == 'backward':
+
+            for k in range(1, int(self.t_final / self.dt)):
+                self.x[k] = self.x[k - 1] + self.dt * (self.systemCoef_a  * self.x[k - 1] * self.x[k - 1])
+                print("t = {0}, x = {1}".format(self.t[k], self.x[k]))
+
+        elif method == 'centered':
+
+            self.x[1] = self.x_initial + (self.dt * 2 * (self.systemCoef_a * self.x[0]))
+
+            for k in range(1, int(self.t_final / self.dt) - 1):
+                self.x[k + 1] = self.x[k - 1] + 2 * self.dt * (self.systemCoef_a  * self.x[k - 1] * self.x[k - 1])
+                print("t = {0}, x = {1}".format(self.t[k], self.x[k]))
+        else:
+            return
+        
     def plot(self, color, xlabel='x', ylabel='y', figure_title='title'):
         plt.figure()
         plt.plot(self.t, self.x, color, marker = '')
@@ -46,9 +69,6 @@ class solver:
         plt.grid(True)
         plt.title(figure_title)        
         plt.show(block = False)
-
-
-
 
 
  
