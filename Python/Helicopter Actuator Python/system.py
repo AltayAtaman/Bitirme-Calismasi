@@ -42,15 +42,18 @@ class actuatorSystem:
         self.etaWG = 0.3
 
         # X values
-        self.x1 = self.kT / (self.N1 * self.N2 * self.N3 * self.N4)
-        self.x2 = self.jSG / ((self.N1 * self.N2 * self.N3 * self.N4) ** 2)
-        self.x3 = self.jDSG / ((self.N1 * self.N2 * self.N3) ** 2)
-        self.x4 = self.cM / (self.N1 * self.N2)
-        self.x5 = self.jDSP / ((self.N1 * self.N2) ** 2)
-        self.x6 = self.jWG / (self.N1 ** 2)
-        self.x7 = self.jM + self.jMSG
+        self.x1 = self.kT / (self.N1 * self.N2 * self.N3)
+        self.x2 = self.jSG / ((self.N1 * self.N2 * self.N3) ** 2)
+        self.x3 = self.cM / (self.N1 * self.N2)
+        self.x4 = self.jDSP / ((self.N1 * self.N2) ** 2)
+        self.x5 = self.jWG / (self.N1 ** 2)
+        self.x6 = self.jM + self.jMSG
 
         # Y values
-        self.Y1 = self.x7 + self.x6 + (self.x5 + self.x3 + self.x2) / (self.etaWG)
-        self.Y2 = self.x4 / (self.etaWG)
+        self.Y1 = self.x6 + self.x5 + (self.x4 + self.x2) / (self.etaWG)
+        self.Y2 = self.x3 / (self.etaWG)
         self.Y3 = self.x1 / (self.etaWG)
+        print("Y VALUES")
+        print(self.Y1)
+        print(self.Y2)
+        print(self.Y3)

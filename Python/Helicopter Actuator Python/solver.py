@@ -3,7 +3,7 @@ import matplotlib.pyplot as plotter
 
 class centralSolver:
 
-    def __init__(self, dt, t_initial, t_final, x_0, x_dot_0, torque_input, Ae):
+    def __init__(self, dt, t_initial, t_final, x_0, x_dot_0, freq, Ae):
                
         self.dt = dt
         self.t_initial = t_initial
@@ -16,12 +16,13 @@ class centralSolver:
         
         self.u = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
 
-        self.Force = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
+        self.Torque = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.t = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.angPos = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.angVel = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.error = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
-        self.x_ref = 5 + np.sin(2*np.pi*torque_input*self.t)
+        #self.x_ref = 5 + np.sin(2*np.pi*freq*self.t)
+        self.x_ref = 10
 
     def centered_difference_solver(self, y1, y2, y3):
 
@@ -34,14 +35,17 @@ class centralSolver:
         fx_fut = (y1 / (self.dt ** 2)) + (y2 / (2 * self.dt))
 
         for i in range(1, self.length_of_loop - 1):
-            self.error[i] = self.x_ref[i] - self.angPos[i]
+            self.error[i] = self.x_ref - self.angPos[i]
 
-            C1 = self.x_ref[i + 1] - ((self.angPos[i] * fx_now) + (self.angPos[i - 1] * fx_pre)) / fx_fut
-            self.Force[i] = fx_fut * (C1 - self.Ae * self.error[i])
+            C1 = self.x_ref - ((self.angPos[i] * fx_now) + (self.angPos[i - 1] * fx_pre)) / fx_fut
 
-            self.angPos[i + 1] = (self.angPos[i] * fx_now + self.angPos[i - 1] * fx_pre + self.Force[i]) / fx_fut
+            self.Torque[i] = fx_fut * (C1 - self.Ae * self.error[i])
+            print(self.Torque[i])
 
-            print(self.angPos[i - 1])
+            self.angPos[i + 1] = (self.angPos[i] * fx_now + self.angPos[i - 1] * fx_pre + self.Torque[i]) / fx_fut
+            self.Torque[i] = self.Torque[i] * 1000
+
+            #print(self.angPos[i - 1])
 
     def calculate_velocity(self):
         self.angVel[0] = self.x_dot_0
@@ -53,9 +57,16 @@ class centralSolver:
     def plotAngPos(self, xlabel, ylabel, title):
         plotter.figure()
         plotter.plot(self.t, self.angPos, 'r')
-        plotter.plot(self.t, self.x_ref, 'b')
+
+        ref_plot = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
+
+        for i in range(1, self.length_of_loop - 1):
+            ref_plot[i] = self.x_ref
+
+        plotter.plot(self.t, ref_plot, 'b')
         plotter.xlabel(xlabel)
         plotter.ylabel(ylabel)
+        plotter.xlim(0, self.t_final -1)
         plotter.grid(True)
         plotter.title(title)
         
@@ -65,14 +76,16 @@ class centralSolver:
         plotter.plot(self.t, self.angVel, 'g')
         plotter.xlabel(xlabel)
         plotter.ylabel(ylabel)
+        plotter.xlim(0, self.t_final -1)
         plotter.grid(True)
         plotter.title(title)
 
-    def plotForce(self, xlabel, ylabel, title):
+    def plotTorque(self, xlabel, ylabel, title):
         plotter.figure()
-        plotter.plot(self.t, self.Force, 'y')
+        plotter.plot(self.t, self.Torque, 'y')
         plotter.xlabel(xlabel)
         plotter.ylabel(ylabel)
+        plotter.xlim(0, self.t_final -1)
         plotter.grid(True)
         plotter.title(title)
 
