@@ -21,8 +21,8 @@ class centralSolver:
         self.angPos = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.angVel = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
         self.error = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
-        #self.x_ref = 5 + np.sin(2*np.pi*freq*self.t)
-        self.x_ref = 10
+        self.x_ref = 5 + np.sin(2*np.pi*freq*self.t)
+        #self.x_ref = 10 # step input
 
     def centered_difference_solver(self, y1, y2, y3):
 
@@ -35,9 +35,9 @@ class centralSolver:
         fx_fut = (y1 / (self.dt ** 2)) + (y2 / (2 * self.dt))
 
         for i in range(1, self.length_of_loop - 1):
-            self.error[i] = self.x_ref - self.angPos[i]
+            self.error[i] = self.x_ref[i] - self.angPos[i]
 
-            C1 = self.x_ref - ((self.angPos[i] * fx_now) + (self.angPos[i - 1] * fx_pre)) / fx_fut
+            C1 = self.x_ref[i] - ((self.angPos[i] * fx_now) + (self.angPos[i - 1] * fx_pre)) / fx_fut
 
             self.Torque[i] = fx_fut * (C1 - self.Ae * self.error[i])
             print(self.Torque[i])
@@ -58,12 +58,12 @@ class centralSolver:
         plotter.figure()
         plotter.plot(self.t, self.angPos, 'r')
 
-        ref_plot = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
+        #ref_plot = np.arange(self.t_initial, self.t_final, self.dt, dtype=float)
 
-        for i in range(1, self.length_of_loop - 1):
-            ref_plot[i] = self.x_ref
+        #for i in range(1, self.length_of_loop - 1):
+        #    ref_plot[i] = self.x_ref
 
-        plotter.plot(self.t, ref_plot, 'b')
+        plotter.plot(self.t, self.x_ref, 'b')
         plotter.xlabel(xlabel)
         plotter.ylabel(ylabel)
         plotter.xlim(0, self.t_final -1)
