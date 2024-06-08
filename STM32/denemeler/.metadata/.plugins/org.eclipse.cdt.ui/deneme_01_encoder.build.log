@@ -1,0 +1,10 @@
+20:55:16 **** Incremental Build of configuration Debug for project deneme_01_encoder ****
+make -j8 all 
+arm-none-eabi-size   deneme_01_encoder.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8444	     20	   1636	  10100	   2774	deneme_01_encoder.elf
+Finished building: default.size.stdout
+ 
+
+20:55:17 Build Finished. 0 errors, 0 warnings. (took 1s.752ms)
+

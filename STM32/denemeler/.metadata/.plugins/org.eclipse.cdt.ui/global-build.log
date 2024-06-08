@@ -1,0 +1,31 @@
+20:48:59 **** Incremental Build of configuration Debug for project deneme_01_encoder ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/usart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/usart.d" -MT"Core/Src/usart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/usart.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:101:49: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+  101 |     HAL_UART_Transmit(&huart2, (uint8_t *)data, strlen(data), 1000);
+      |                                                 ^~~~~~
+../Core/Src/main.c:101:49: warning: incompatible implicit declaration of built-in function 'strlen'
+../Core/Src/main.c:23:1: note: include '<string.h>' or provide a declaration of 'strlen'
+   22 | #include "gpio.h"
+  +++ |+#include <string.h>
+   23 | 
+arm-none-eabi-gcc -o "deneme_01_encoder.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Github\Bitirme-Calismasi\STM32\denemeler\deneme_01_encoder\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="deneme_01_encoder.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: deneme_01_encoder.elf
+ 
+arm-none-eabi-size   deneme_01_encoder.elf 
+arm-none-eabi-objdump -h -S  deneme_01_encoder.elf  > "deneme_01_encoder.list"
+   text	   data	    bss	    dec	    hex	filename
+   8444	     20	   1636	  10100	   2774	deneme_01_encoder.elf
+Finished building: default.size.stdout
+ 
+Finished building: deneme_01_encoder.list
+ 
+20:55:16 **** Incremental Build of configuration Debug for project deneme_01_encoder ****
+make -j8 all 
+arm-none-eabi-size   deneme_01_encoder.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8444	     20	   1636	  10100	   2774	deneme_01_encoder.elf
+Finished building: default.size.stdout
+ 
