@@ -51,11 +51,11 @@ zeta = sqrt((log(PO)^2) / (pi^2 + log(PO)^2)); %(YANLIS MI?)
 
 [rlocus_k, poles] = rlocus(total_system);
 
-figure;
-rlocus(total_system);
-title('Root Locus');
-hold on;
-sgrid(zeta, []);
+% figure;
+% rlocus(total_system);
+% title('Root Locus');
+% hold on;
+% sgrid(zeta, []);
 
 % tuned values from pidtool:
 kp = 1.38 * 1000; 
