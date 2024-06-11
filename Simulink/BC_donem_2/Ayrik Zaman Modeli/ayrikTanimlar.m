@@ -1,19 +1,17 @@
-% dc motor parametreleri
-% L = 0.000113; 
-% R = 0.199;
-% J = 0.0000023;
-% b = 0.000023873;
+%% DC Motor Parametre Tanimlari:
+L = 0.000113; % motor induktani
+R = 0.199; % motor ic direnci
+J = 0.0000023; % rotor atalet momenti
+b = 0.000023873; % rotor surtunme katsayisi
 
-% ke = 0.0000219; % ters emk sabiti
-% kt = 0.0000217; % tork sabiti
+ke = 0.0000219; % ters emk sabiti
+kt = 0.0000217; % tork sabiti
 
-J = 0.00014901;
-ke = 0.091982;
-kt = 1.016;
-L = 0.2766;
-b = 0.00047975;
-R = 1.3;
+z1 = (L * J / kt);
+z2 = (L * b / kt);
+z3 = (R * b / kt) + ke;
 
+%% Disli Sistemi Parametre Tanimlari:
 % disli oranlari
 N1 = 1;
 N2 = 70;
@@ -70,6 +68,6 @@ x6 = jWG/(N1^2);
 x7 = jM + jMSG;
 
 % Y katsayilari hesabi / hesap ciktilari
-Y1 = x7 + x6 + (x5 + x3 + x2)/(etaWG);
-Y2 = x4/(etaWG);
-Y3 = x1/(etaWG);
+y1 = x7 + x6 + (x5 + x3 + x2)/(etaWG);
+y2 = x4/(etaWG);
+y3 = x1/(etaWG);

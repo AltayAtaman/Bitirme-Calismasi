@@ -1,3 +1,15 @@
+%% Sadece DC Motor (Acisal Hiz / Gerilim):
+only_dc_num = ke;
+only_dc_denom = [L*J, (L*b + R*J), (R*b + ke*kt)];
+s = tf('s');
+
+%only_dc_tf = tf(only_dc_num, only_dc_denom);
+only_dc_tf = ke / ((L*s+R) * (J*s+b) + ke*kt);
+
+figure;
+step(10 * only_dc_tf);
+title('Step Response');
+grid on;
 %% Transfer Fonksiyonu Eldesi
 
 tf_dc_num = [kt * J, kt * b];
