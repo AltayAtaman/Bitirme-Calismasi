@@ -42,8 +42,46 @@ y1 = x6 + x5 + (x4 + x2)/(eWG);
 y2 = x3/(eWG);
 y3 = x1/(eWG);
 
+%% Ayrik Script Kontrolcu:
+dt = 0.01;
+ti = 0; tf = 5;
+Ae = 0.9;
 
-% Ayrik Kontrolcu Girdileri:
+t = ti:dt:tf;
+
+length_loop = (tf - ti) / dt;
+
+x_t_c = zeros(length_loop);
+V = zeros(length_loop, 1);
+x_ref = 10;
+
+% Initial Conditions
+
+x_0 = 0;
+x_dot_0 = 0;
+
+x_t_c(1,1) = x_0;
+x_t_c(2,1) = x_dot_0 * dt + x_0;
+
+
+for i = 2 : 1 : length_loop
+    f_x_pre = 3 / (2 * dt) - 1 / (dt^2);
+    f_x_now = 2 / (dt^2) - 2;
+    f_x_fut = 1 / (dt^2) + 3 / (2 * dt);
+
+    error = x_ref - x_t_c(i - 1, 1);
+    
+    x_t_c(i + 1, 1) = (x_t_c(i, 1) * f_x_now + x_t_c(i - 1, 1) * f_x_pre) /...
+        f_x_fut + V(i, 1) / f_x_fut;
+end
+
+
+
+
+
+
+
+%% Ayrik Kontrolcu Girdileri:
 
 dt = 0.1;
 Ae = 0.5;
