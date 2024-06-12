@@ -30,25 +30,8 @@ rhoDSP = 2700;
 rhoDSG = 2700;
 rhoSG = 2700;
 
-% disli kutleleri
-mM = 47.5 / 1000;  % kg
-mMSG = 17.5 / 1000;  % kg
-mWG = 100 / 1000;  % kg
-mDSP = 325 / 1000;  % kg
-mDSG = 89 / 1000;  % kg
-mSG = 180 / 1000;  % kg
-
-% disli yari-caplari
-rM = 5.25  / 1000;  % m
-rMSG = 5.25 / 1000;  % m
-rWG = 5.25 / 1000;  % m
-rDSP = 25 / 1000;  % m
-rDSG = 49.8 / 1000;  % m
-rSG = 59.4 / 1000;  % m
-
 % eylemsizlik hesaplari
-jM = 1/2*mM*((rM)^2);
-%J = jM;
+jM = J;
 jMSG = 1/2*mMSG*((rMSG)^2);
 jWG = 1/2*mWG*((rWG)^2);
 jDSP = 1/2*mDSP*((rDSP)^2);
