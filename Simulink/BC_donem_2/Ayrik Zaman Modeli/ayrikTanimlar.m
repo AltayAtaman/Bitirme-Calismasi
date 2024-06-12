@@ -1,8 +1,10 @@
 %% DC Motor Parametre Tanimlari:
-L = 0.000113; % motor induktani
-R = 0.199; % motor ic direnci
-J = 0.0000023; % rotor atalet momenti
-b = 0.000023873; % rotor surtunme katsayisi
+
+% dc motor parametreleri
+L = 0.000113; 
+R = 0.199;
+J = 0.0000023;
+b = 0.000023873;
 
 ke = 0.0000219; % ters emk sabiti
 kt = 0.0000217; % tork sabiti
@@ -22,13 +24,21 @@ N4 = 8.25;
 kyay = 0.17; % (n.m)/(derece)
 cM = 0.022; % (n.m)/(derece*saniye)
 
-% disli malzeme yogunluklari (al)
-rhoM = 2700; 
-rhoMSG = 2700;
-rhoWG = 2700;
-rhoDSP = 2700;
-rhoDSG = 2700;
-rhoSG = 2700;
+% disli kutleleri
+mM = 47.5 / 1000;  % kg
+mMSG = 17.5 / 1000;  % kg
+mWG = 100 / 1000;  % kg
+mDSP = 325 / 1000;  % kg
+mDSG = 89 / 1000;  % kg
+mSG = 180 / 1000;  % kg
+
+% disli yari-caplari
+rM = 5.25  / 1000;  % m
+rMSG = 5.25 / 1000;  % m
+rWG = 5.25 / 1000;  % m
+rDSP = 25 / 1000;  % m
+rDSG = 49.8 / 1000;  % m
+rSG = 59.4 / 1000;  % m
 
 % eylemsizlik hesaplari
 jM = J;

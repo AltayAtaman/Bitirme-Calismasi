@@ -9,6 +9,6 @@
 #define INC_SYSTEM_H_
 
 int pwm_duty = 0;
-unsigned int encoder_count = 0;
+unsigned int encoder_count = 0, motor_speed = 0;
 
 #endif /* INC_SYSTEM_H_ */
